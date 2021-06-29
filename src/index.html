@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+</head>
+
+<div id='persoff'></div>
+<body class="w3-container" style = "background-color:#434343; display: flex">
+<script src = "index.js"></script>
+
+<div style="float:left">
+<input  size = "19" placeholder="Show name" type="text" id="showname" />
+<input  size = "19" placeholder="Episode range (a-b)" type="text" id="episodes" />
+<button style = "margin-top:-4px" class="w3-button w3-round w3-black" id = "submitsearch">Submit</button>
+
+<table style = "margin-top: 20px;" cellspacing="0" id = "episodelist">
+</table>
+</div>
+<div class = "container" style="float:left">
+<button class="switch w3-button w3-round w3-black" style="float: right; margin-top:-58px">Lights</button>
+<iframe allowfullscreen = "true" class="responsive-iframe" id = "episodeframe"></iframe>
+</div>
+</body>
+</html>

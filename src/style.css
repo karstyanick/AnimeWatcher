@@ -1,0 +1,57 @@
+table {
+    border: 1px solid black;
+}
+
+td {
+    border: 1px solid black;
+}
+
+td.rating, td.imdb{
+    text-align: center;
+}
+
+th{
+    background-color: #f2f2f2;
+    border: 1px solid black;
+}
+
+input[type=text] {
+    padding:6px;
+    border:0;
+    border-radius:2px;
+    margin-right: 13px;
+    margin-top: 20px;
+}
+
+.container{
+    position: relative;
+    padding-bottom: 43%;
+    margin-top: 76px;
+    margin-left: -85px;
+    flex: 1;
+}
+
+#persoff {
+    background:#000;
+    opacity:0.9;
+    filter:alpha(opacity=90);
+    position:fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    z-index:100;
+}
+
+iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    z-index: 102;
+}
+
