@@ -7,6 +7,9 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "jquery-autocomplete": "^1.2.8",
+    "jquery.autocomplete": "^1.2.0",
+    "json-server": "^0.16.3",
     "webpack": "^5.37.1"
   },
   "devDependencies": {

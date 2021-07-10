@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 
 <div id='persoff'></div>
@@ -21,8 +22,30 @@
 </table>
 </div>
 <div class = "container" style="float:left">
+<button id = "showmodal" style = "margin-top:-104px; margin-left:95px" class="w3-button w3-round w3-black">Add Show</button>
 <button class="switch w3-button w3-round w3-black" style="float: right; margin-top:-58px">Lights</button>
 <iframe allowfullscreen = "true" class="responsive-iframe" id = "episodeframe"></iframe>
+</div>
+
+<div id="modalcontainer" class="w3-modal" style = "z-index: 103">
+    <div id="modal" class="w3-modal-content">
+        <div class="modaldiv">
+            <h3>Please search for your show on theses sites and copy the name used in the link</h3>
+        </div>
+        <div class="modaldiv_i">
+            <input  placeholder="Anime Owl Name" type="text" id="AnimeOwlName" />
+            <a target="_blank" style = "margin-left: 5px" href = "https://animeowl.net/">Anime Owl Link</a>
+        </div>
+        <div class="modaldiv_i">
+            <input  placeholder="Anime Filler List Name" type="text" id="FillerListNames" />
+            <a target="_blank" style = "margin-left: 5px" href = "https://www.animefillerlist.com/">Anime Filler List</a>
+        </div>
+        <div class="modaldiv_i">
+            <input  placeholder="imdb ID" type="text" id="ImdbID" />
+            <a target="_blank" style = "margin-left: 5px" href = "https://www.imdb.com/">IMDb</a>
+        </div>
+        <button id = "modalsubmit" class="w3-button w3-round w3-black" id = "submitshow">Submit</button>
+    </div>
 </div>
 </body>
 </html>

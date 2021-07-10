@@ -15,7 +15,7 @@ th{
     border: 1px solid black;
 }
 
-input[type=text] {
+#showname,#episodes {
     padding:6px;
     border:0;
     border-radius:2px;
@@ -53,5 +53,29 @@ iframe {
     height: 100%;
     border: none;
     z-index: 102;
+}
+
+#modal {
+    background-color: #282828;
+    width: auto;
+}
+
+#modalcontainer {
+    padding-top: 0;
+    display: none;
+}
+
+.modaldiv {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: block;
+    color: #f2f2f2;
+}
+
+.modaldiv_i {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    color: #f2f2f2;
 }
 
