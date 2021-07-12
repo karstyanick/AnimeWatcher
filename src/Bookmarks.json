@@ -1,14 +1,22 @@
 {
-  "Naruto": {
-    "episode": 22
-  },
-  "One Piece": {
-    "episode": 23
-  },
-  "Naruto, Shippuden": {
-    "episode": 23
-  },
-  "Boruto, Naruto Next Generations": {
-    "episode": 23
-  }
+  "shows": [
+    {
+      "id": "boruto naruto next generations",
+      "episode": "",
+      "time": "",
+      "animeowl": "boruto-naruto-next-generations",
+      "animefillerlist": "boruto-naruto-next-generations",
+      "imdbid": "tt6342474",
+      "season": "1"
+    },
+    {
+      "id": "boku no hero academia 3rd season",
+      "episode": "",
+      "time": "",
+      "animeowl": "boku-no-hero-academia-3rd-season",
+      "animefillerlist": "my-hero-academia",
+      "imdbid": "tt5626028",
+      "season": "3"
+    }
+  ]
 }

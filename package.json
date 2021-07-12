@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "build": "webpack",
-    "server": "json-server --watch ./dist/Bookmarks.json"
+    "server": "json-server --watch ./src/Bookmarks.json"
   },
   "dependencies": {
     "axios": "^0.21.1",

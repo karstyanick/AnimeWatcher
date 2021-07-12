@@ -46,20 +46,18 @@ async function GetUserInput(){
 
     let startepisode = parseInt(episodes.split("-")[0]);
     let endepiosde = parseInt(episodes.split("-")[1]);
-    let season = "1";
-    if(parseInt(episodes.split("-")[2])){
-        season = parseInt(episodes.split("-")[2]);
-    }
 
     let animeowl;
     let animefillerlist;
     let imdbid;
+    let season;
 
     await axios.get('http://localhost:3000/shows/' + showname, {
     }).then(resp => {
         animeowl = resp.data.animeowl;
         animefillerlist = resp.data.animefillerlist;
         imdbid = resp.data.imdbid;
+        season = resp.data.season;
     });
 
     if(animeowl != null && animefillerlist != null && imdbid != null){
@@ -122,6 +120,21 @@ async function getepisodelink(showname){
     });
 }
 
+async function seasonepisodetoglobalepisode(imdbid, season){
+    let nofepisodes = 0;
+
+    for(let i = 1; i < parseInt(season); i++){
+        let response = await axios.get('http://www.omdbapi.com/?apikey=4c33291e&i=' + imdbid + "&season=" + i)
+        nofepisodes += response.data.Episodes.length;
+    }
+
+    if(imdbid == "tt5626028" && season >= 3){
+        nofepisodes -= 1;
+    }
+
+    return nofepisodes;
+}
+
 
 async function getepisodedata(showname, animeowl, animefillerlist, imdbid, startepisde, endepisode, season){
 
@@ -130,6 +143,12 @@ async function getepisodedata(showname, animeowl, animefillerlist, imdbid, start
     let typematches = await generateepisodetypedata(animefillerlist);
     let currentepisode;
     let currentepisodetime;
+    let nofepisodesbeforeseason = 0;
+
+    if(season != "1"){
+        nofepisodesbeforeseason = await seasonepisodetoglobalepisode(imdbid, season);
+        console.log(nofepisodesbeforeseason)
+    }
 
     await axios.get('http://localhost:3000/shows/' + showname, {
     }).then(resp => {
@@ -179,7 +198,7 @@ async function getepisodedata(showname, animeowl, animefillerlist, imdbid, start
             rating = "N/A"
         }
 
-        $('#episodelist').append("<tr id = '" + showname+ "'><td style='background-color:" + colorselectortype(typematches[i-1][1]) + "' class='episode' id ='" + i +"' ><button id = '" + showlink +"' style='background-color:" + colorselectortype(typematches[i-1][1]) + "' class ='w3-button watch'>" + "Episode " + i + "</button></td><td class = 'rating' style='background-color:" + colorselector(rating) + "' ><span>"  + rating + "</span></td><td class = 'imdb' style='background-color:#f2f2f2'><a target=\"_blank\" href='https://www.imdb.com/title/" + response.data.imdbID + "'>IMDB</a></td><td style = 'background-color:#f2f2f2'><button class = 'w3-button Bookmark'>Bookmark</button></td><td style = 'background-color: #f2f2f2'><input class = 'timeinput' style = 'outline:none; border:none; border-color:transparent; background-color: #f2f2f2; padding-left: 6px' id = 'time_"+i+"' placeholder='00:00' size='3' maxlength='5'></td><td style = 'background-color:#f2f2f2'><span>" + bookmark + "</span></td></tr>");
+        $('#episodelist').append("<tr id = '" + showname+ "'><td style='background-color:" + colorselectortype(typematches[nofepisodesbeforeseason+i-1][1]) + "' class='episode' id ='" + i +"' ><button id = '" + showlink +"' style='background-color:" + colorselectortype(typematches[nofepisodesbeforeseason+i-1][1]) + "' class ='w3-button watch'>" + "Episode " + i + "</button></td><td class = 'rating' style='background-color:" + colorselector(rating) + "' ><span>"  + rating + "</span></td><td class = 'imdb' style='background-color:#f2f2f2'><a target=\"_blank\" href='https://www.imdb.com/title/" + response.data.imdbID + "'>IMDB</a></td><td style = 'background-color:#f2f2f2'><button class = 'w3-button Bookmark'>Bookmark</button></td><td style = 'background-color: #f2f2f2'><input class = 'timeinput' style = 'outline:none; border:none; border-color:transparent; background-color: #f2f2f2; padding-left: 6px' id = 'time_"+i+"' placeholder='00:00' size='3' maxlength='5'></td><td style = 'background-color:#f2f2f2'><span>" + bookmark + "</span></td></tr>");
         $("#time_" + i).val(time);
     }
 }
@@ -253,6 +272,11 @@ $("#modalsubmit").click(function(){
     let animeowl = $("#AnimeOwlName").val()
     let animefillerlist = $("#FillerListNames").val()
     let imdbid = $("#ImdbID").val()
+    let season = $("#Season").val()
+
+    if(season === ""){
+        season = "1";
+    }
 
     axios.post('http://localhost:3000/shows', {
         id: animeowl.replaceAll("-"," "),
@@ -260,7 +284,8 @@ $("#modalsubmit").click(function(){
         time: "",
         animeowl: animeowl,
         animefillerlist: animefillerlist,
-        imdbid: imdbid
+        imdbid: imdbid,
+        season: season
     }).then(resp => {
         updateavailability();
     })

@@ -15,5 +15,11 @@ async function gettypedata(){
     })
 }
 
+async function testapi(){
+    let response = await axios.get("https://omdbapi.com/?apikey=4c33291e&i=tt6342474&season=1");
+    console.log(response.data.Episodes);
+}
 
-gettypedata()
+
+//gettypedata()
+testapi();
