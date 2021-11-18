@@ -25,7 +25,6 @@ th{
 
 .container{
     position: relative;
-    padding-bottom: 43%;
     margin-top: 76px;
     margin-left: -85px;
     flex: 1;
@@ -77,5 +76,19 @@ iframe {
     margin-bottom: 10px;
     display: flex;
     color: #f2f2f2;
+}
+
+#currentepisode {
+    position: relative;
+    padding-top: 57%;
+    text-align: center;
+    font-size: 25px;
+}
+
+.navigate {
+    position: relative;
+    margin-top: 57%;
+    z-index: 102;
+    display: none;
 }
 

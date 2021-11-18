@@ -1,8 +1,17 @@
 {
   "shows": [
     {
-      "id": "boruto naruto next generations",
-      "episode": "",
+      "id": "my hero academia season 3",
+      "episode": "5",
+      "time": "",
+      "animeowl": "boku-no-hero-academia-3rd-season-dub",
+      "animefillerlist": "my-hero-academia",
+      "imdbid": "tt5626028",
+      "season": "3"
+    },
+    {
+      "id": "boruto",
+      "episode": "217",
       "time": "",
       "animeowl": "boruto-naruto-next-generations",
       "animefillerlist": "boruto-naruto-next-generations",
@@ -10,12 +19,65 @@
       "season": "1"
     },
     {
-      "id": "boku no hero academia 3rd season",
+      "id": "One Piece",
       "episode": "",
       "time": "",
-      "animeowl": "boku-no-hero-academia-3rd-season",
-      "animefillerlist": "my-hero-academia",
-      "imdbid": "tt5626028",
+      "animeowl": "one-piece-dub",
+      "animefillerlist": "one-piece",
+      "imdbid": "tt0388629",
+      "season": "1"
+    },
+    {
+      "id": "Jujutsu Kaisen",
+      "episode": "24",
+      "time": "",
+      "animeowl": "jujutsu-kaisen-2",
+      "animefillerlist": "jujutsu-kaisen",
+      "imdbid": "tt12343534",
+      "season": "1"
+    },
+    {
+      "id": "Mob Psycho 100",
+      "episode": "",
+      "time": "",
+      "animeowl": "mob-psycho-100-dub",
+      "animefillerlist": "mob-psycho-100",
+      "imdbid": "tt5897304",
+      "season": "1"
+    },
+    {
+      "id": "Jojo part 3",
+      "episode": "24",
+      "time": "",
+      "animeowl": "jojo-no-kimyou-na-bouken-stardust-crusaders-egypt-hen",
+      "animefillerlist": "jojos-bizarre-adventure-tv",
+      "imdbid": "tt2359704",
+      "season": "2"
+    },
+    {
+      "id": "jojo part 4",
+      "episode": "8",
+      "time": "",
+      "animeowl": "jojo-no-kimyou-na-bouken-diamond-wa-kudakenai",
+      "animefillerlist": "jojos-bizarre-adventure-tv",
+      "imdbid": "tt2359704",
+      "season": "3"
+    },
+    {
+      "id": "kimetsu no yaiba s2",
+      "episode": "",
+      "time": "",
+      "animeowl": "kimetsu-no-yaiba-mugen-ressha-hen",
+      "animefillerlist": "demon-slayer-kimetsu-no-yaiba",
+      "imdbid": "tt9335498",
+      "season": "2"
+    },
+    {
+      "id": "Legend of korra season 3",
+      "episode": "",
+      "time": "",
+      "animeowl": "the-legend-of-korra-season-3",
+      "imdbid": "tt1695360",
       "season": "3"
     }
   ]

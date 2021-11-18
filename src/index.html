@@ -22,26 +22,33 @@
 </table>
 </div>
 <div class = "container" style="float:left">
-<button id = "showmodal" style = "margin-top:-104px; margin-left:95px" class="w3-button w3-round w3-black">Add Show</button>
+<button id = "showmodal" style = "float: left; margin-top:-58px; margin-left:95px" class="w3-button w3-round w3-black">Add Show</button>
 <button class="switch w3-button w3-round w3-black" style="float: right; margin-top:-58px">Lights</button>
 <iframe allowfullscreen = "true" class="responsive-iframe" id = "episodeframe"></iframe>
+<button id = "next" class="w3-button w3-round w3-black navigate" style="float: right">Next</button>
+<button id = "previous" class="w3-button w3-round w3-black navigate" style="float: left" >Previous</button>
+<div id = "currentepisode"></div>
 </div>
+
 
 <div id="modalcontainer" class="w3-modal" style = "z-index: 103">
     <div id="modal" class="w3-modal-content">
         <div class="modaldiv">
-            <h3>Please search for your show on theses sites and copy the name used in the link</h3>
+            <h3>Please search for your show on theses sites and paste the link to them</h3>
         </div>
         <div class="modaldiv_i">
-            <input  placeholder="Anime Owl Name" type="text" id="AnimeOwlName" />
-            <a target="_blank" style = "margin-left: 5px" href = "https://animeowl.net/">Anime Owl Link</a>
+            <input  placeholder="Name" type="text" id="Name" />
         </div>
         <div class="modaldiv_i">
-            <input  placeholder="Anime Filler List Name" type="text" id="FillerListNames" />
+            <input  placeholder="Anime Owl Link" type="text" id="AnimeOwlName" />
+            <a target="_blank" style = "margin-left: 5px" href = "https://animeowl.net/">Anime Owl</a>
+        </div>
+        <div class="modaldiv_i">
+            <input  placeholder="Anime Filler List Link" type="text" id="FillerListNames" />
             <a target="_blank" style = "margin-left: 5px" href = "https://www.animefillerlist.com/">Anime Filler List</a>
         </div>
         <div class="modaldiv_i">
-            <input  placeholder="imdb ID" type="text" id="ImdbID" />
+            <input  placeholder="Imdb Link" type="text" id="ImdbID" />
             <a target="_blank" style = "margin-left: 5px" href = "https://www.imdb.com/">IMDb</a>
         </div>
         <div class="modaldiv_i">

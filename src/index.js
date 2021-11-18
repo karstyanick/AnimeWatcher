@@ -60,7 +60,7 @@ async function GetUserInput(){
         season = resp.data.season;
     });
 
-    if(animeowl != null && animefillerlist != null && imdbid != null){
+    if(animeowl != null && imdbid != null){
         await getepisodedata(showname, animeowl, animefillerlist, imdbid, startepisode, endepiosde, season)
     }
 }
@@ -73,7 +73,7 @@ async function getiframesrc(url){
 
     console.log(url)
 
-    return await axios.get('https://cors-anywhere.herokuapp.com/' + url, {
+    return await axios.get('http://localhost:8080/' + url, {
     }).then(resp => {
         let regex = RegExp('data-source="https:\\/\\/vidstreaming\\.io\\/streaming\\.php\\?id=(.+?)"', "g");
         let matches = [...resp.data.matchAll(regex)];
@@ -83,7 +83,7 @@ async function getiframesrc(url){
 }
 
 async function generateepisodetypedata(showname){
-    return await axios.get('https://cors-anywhere.herokuapp.com/https://animefillerlist.com/shows/' + showname, {
+    return await axios.get('http://localhost:8080/https://animefillerlist.com/shows/' + showname, {
     }).then(resp => {
         let regex = RegExp('Number">\\d.+?"Type"><span>(?<type>.+?)<\\/span>', "g");
         let matches = [...resp.data.matchAll(regex)];
@@ -107,11 +107,14 @@ function colorselectortype(type){
     else if(type === "Manga Canon"){
         color = "#4e4eff"
     }
+    else if (type === "undefined"){
+        color = "#4e4eff"
+    }
     return color;
 }
 
 async function getepisodelink(showname){
-    return await axios.get('https://cors-anywhere.herokuapp.com/https://animeowl.net/watch/' + showname, {
+    return await axios.get('http://localhost:8080/https://animeowl.net/watch/' + showname, {
     }).then(resp => {
         let regex = RegExp('episode-number\" data-ep-id=\"(\\d*)', "g");
         let matches = [...resp.data.matchAll(regex)];
@@ -135,12 +138,20 @@ async function seasonepisodetoglobalepisode(imdbid, season){
     return nofepisodes;
 }
 
+async function getratingafterfail(imdblink){
+    return await axios.get('http://localhost:8080/' + imdblink, {
+    }).then(resp => {
+        let regex = RegExp('class="AggregateRatingButton__RatingScore-sc-1ll29m0-1 iTLWoV">(.{3})');
+        let match = regex.exec(resp.data);
+        return match[1];
+    });
+}
+
 
 async function getepisodedata(showname, animeowl, animefillerlist, imdbid, startepisde, endepisode, season){
 
     let linkmatches = await getepisodelink(animeowl);
-
-    let typematches = await generateepisodetypedata(animefillerlist);
+    let typematches;
     let currentepisode;
     let currentepisodetime;
     let nofepisodesbeforeseason = 0;
@@ -148,6 +159,17 @@ async function getepisodedata(showname, animeowl, animefillerlist, imdbid, start
     if(season != "1"){
         nofepisodesbeforeseason = await seasonepisodetoglobalepisode(imdbid, season);
         console.log(nofepisodesbeforeseason)
+    }
+
+    if(animefillerlist == null){
+        typematches = []
+
+        for ( var i = 0; i < nofepisodesbeforeseason+(endepisode-startepisde+1); i++ ) {
+            typematches.push(["x","undefined"]);
+        }
+    }
+    else{
+        typematches = await generateepisodetypedata(animefillerlist);
     }
 
     await axios.get('http://localhost:3000/shows/' + showname, {
@@ -188,11 +210,16 @@ async function getepisodedata(showname, animeowl, animefillerlist, imdbid, start
         }
 
         let response = await axios.get('http://www.omdbapi.com/?apikey=4c33291e&' + finalquery);
+
         let showlink = "http://animeowl.net/" + animeowl + "/?ep_id=" + linkmatches[i-1][1]
         let rating;
 
-        if(response.data.imdbRating){
+        if(response.data.imdbRating !== "N/A" && response.data.imdbRating){
             rating = response.data.imdbRating
+        }
+        else if(response.data.imdbRating === "N/A"){
+            rating = await getratingafterfail("https://www.imdb.com/title/"+response.data.imdbID);
+            console.log("test");
         }
         else{
             rating = "N/A"
@@ -217,11 +244,45 @@ $("#episodelist").on('keyup', ".timeinput", function(e) {
 
 $('#episodelist').on("click", ".watch", async(e) => {
     let link = e.currentTarget.closest("button").id;
-    console.log(link);
+    let num = e.currentTarget.closest("button").innerHTML;
     let iframesrc = await getiframesrc(link);
 
     $('#episodeframe').attr("src", iframesrc);
+    $("#currentepisode").text(num);
+    $(".navigate").show()
 })
+
+$("#next").click( async(e) =>{
+    let current = e.currentTarget.nextElementSibling.nextElementSibling.innerHTML.split(" ")[1];
+
+    $('#episodelist > tr').each(async function(index, tr) {
+        if(tr.children[0].id === current){
+            let link = tr.nextElementSibling.children[0].children[0].id;
+            let num = tr.nextElementSibling.children[0].id;
+
+            let iframesrc = await getiframesrc(link);
+
+            $('#episodeframe').attr("src", iframesrc);
+            $("#currentepisode").text("Episode " + num);
+        }
+    });
+} )
+
+$("#previous").click( async(e) =>{
+    let current = e.currentTarget.nextElementSibling.innerHTML.split(" ")[1];
+
+    $('#episodelist > tr').each(async function(index, tr) {
+        if(tr.children[0].id === current){
+            let link = tr.previousElementSibling.children[0].children[0].id;
+            let num = tr.previousElementSibling.children[0].id;
+
+            let iframesrc = await getiframesrc(link);
+
+            $('#episodeframe').attr("src", iframesrc);
+            $("#currentepisode").text("Episode " + num);
+        }
+    });
+} )
 
 $('#episodelist').on("click", ".Bookmark", async(e) =>{
     let episodeid = e.currentTarget.closest("tr").children[0].id;
@@ -269,17 +330,22 @@ $(".switch").click(function(){
 
 $("#modalsubmit").click(function(){
     $(this).parent().parent()[0].style.display = "none";
+    let name = $("#Name").val()
     let animeowl = $("#AnimeOwlName").val()
     let animefillerlist = $("#FillerListNames").val()
     let imdbid = $("#ImdbID").val()
     let season = $("#Season").val()
+
+    animeowl = animeowl.split("/")[4];
+    animefillerlist = animefillerlist.split("/")[4];
+    imdbid = imdbid.split("/")[4];
 
     if(season === ""){
         season = "1";
     }
 
     axios.post('http://localhost:3000/shows', {
-        id: animeowl.replaceAll("-"," "),
+        id: name,
         episode: "",
         time: "",
         animeowl: animeowl,
