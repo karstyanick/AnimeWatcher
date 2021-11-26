@@ -74,11 +74,28 @@
     },
     {
       "id": "Legend of korra season 3",
-      "episode": "",
+      "episode": "11",
       "time": "",
       "animeowl": "the-legend-of-korra-season-3",
       "imdbid": "tt1695360",
       "season": "3"
+    },
+    {
+      "id": "Legend of korra season 4",
+      "episode": "12",
+      "time": "",
+      "animeowl": "the-legend-of-korra-season-4",
+      "imdbid": "tt1695360",
+      "season": "4"
+    },
+    {
+      "id": "Attack on titan season 4 part 1",
+      "episode": "1",
+      "time": "",
+      "animeowl": "shingeki-no-kyojin-the-final-season",
+      "animefillerlist": "attack-titan",
+      "imdbid": "tt2560140",
+      "season": "4"
     }
   ]
 }

@@ -225,7 +225,7 @@ async function getepisodedata(showname, animeowl, animefillerlist, imdbid, start
             rating = "N/A"
         }
 
-        $('#episodelist').append("<tr id = '" + showname+ "'><td style='background-color:" + colorselectortype(typematches[nofepisodesbeforeseason+i-1][1]) + "' class='episode' id ='" + i +"' ><button id = '" + showlink +"' style='background-color:" + colorselectortype(typematches[nofepisodesbeforeseason+i-1][1]) + "' class ='w3-button watch'>" + "Episode " + i + "</button></td><td class = 'rating' style='background-color:" + colorselector(rating) + "' ><span>"  + rating + "</span></td><td class = 'imdb' style='background-color:#f2f2f2'><a target=\"_blank\" href='https://www.imdb.com/title/" + response.data.imdbID + "'>IMDB</a></td><td style = 'background-color:#f2f2f2'><button class = 'w3-button Bookmark'>Bookmark</button></td><td style = 'background-color: #f2f2f2'><input class = 'timeinput' style = 'outline:none; border:none; border-color:transparent; background-color: #f2f2f2; padding-left: 6px' id = 'time_"+i+"' placeholder='00:00' size='3' maxlength='5'></td><td style = 'background-color:#f2f2f2'><span>" + bookmark + "</span></td></tr>");
+        $('#episodelist').append("<tr id = '" + showname+ "'><td style='background-color:" + colorselectortype(typematches[nofepisodesbeforeseason+i-1][1]) + "' class='episode' id ='" + i +"' ><button id = '" + showlink +"' style='background-color:" + colorselectortype(typematches[nofepisodesbeforeseason+i-1][1]) + "' class ='w3-button watch'>" + "Episode " + i  + "</button></td><td class = 'rating' style='background-color:" + colorselector(rating) + "' ><span>"  + rating + "</span></td><td id = '" + response.data.Title + "' class = 'imdb' style='background-color:#f2f2f2'><a target=\"_blank\" href='https://www.imdb.com/title/" + response.data.imdbID + "'>IMDB</a></td><td style = 'background-color:#f2f2f2'><button class = 'w3-button Bookmark'>Bookmark</button></td><td style = 'background-color: #f2f2f2'><input class = 'timeinput' style = 'outline:none; border:none; border-color:transparent; background-color: #f2f2f2; padding-left: 6px' id = 'time_"+i+"' placeholder='00:00' size='3' maxlength='5'></td><td style = 'background-color:#f2f2f2'><span>" + bookmark + "</span></td></tr>");
         $("#time_" + i).val(time);
     }
 }
@@ -245,41 +245,44 @@ $("#episodelist").on('keyup', ".timeinput", function(e) {
 $('#episodelist').on("click", ".watch", async(e) => {
     let link = e.currentTarget.closest("button").id;
     let num = e.currentTarget.closest("button").innerHTML;
+    let title = e.currentTarget.parentElement.nextElementSibling.nextElementSibling.id;
     let iframesrc = await getiframesrc(link);
 
     $('#episodeframe').attr("src", iframesrc);
-    $("#currentepisode").text(num);
+    $("#currentepisode").text(num + ": " + title);
     $(".navigate").show()
 })
 
 $("#next").click( async(e) =>{
-    let current = e.currentTarget.nextElementSibling.nextElementSibling.innerHTML.split(" ")[1];
+    let current = e.currentTarget.nextElementSibling.nextElementSibling.innerHTML.split(" ")[1].replace(":","");
 
     $('#episodelist > tr').each(async function(index, tr) {
         if(tr.children[0].id === current){
             let link = tr.nextElementSibling.children[0].children[0].id;
             let num = tr.nextElementSibling.children[0].id;
+            let title = tr.nextElementSibling.children[2].id;
 
             let iframesrc = await getiframesrc(link);
 
             $('#episodeframe').attr("src", iframesrc);
-            $("#currentepisode").text("Episode " + num);
+            $("#currentepisode").text("Episode " + num + ": " + title);
         }
     });
 } )
 
 $("#previous").click( async(e) =>{
-    let current = e.currentTarget.nextElementSibling.innerHTML.split(" ")[1];
+    let current = e.currentTarget.nextElementSibling.innerHTML.split(" ")[1].replace(":","");
 
     $('#episodelist > tr').each(async function(index, tr) {
         if(tr.children[0].id === current){
             let link = tr.previousElementSibling.children[0].children[0].id;
             let num = tr.previousElementSibling.children[0].id;
+            let title = tr.nextElementSibling.children[2].id;
 
             let iframesrc = await getiframesrc(link);
 
             $('#episodeframe').attr("src", iframesrc);
-            $("#currentepisode").text("Episode " + num);
+            $("#currentepisode").text("Episode " + num + ": " + title);
         }
     });
 } )
