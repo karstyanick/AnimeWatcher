@@ -25,6 +25,7 @@ async function scrape(url) {
 app.get("/", async (req, res) => {
     const url = req.query.url;
     let link = await scrape(url)
+    console.log(link[0])
     res.send(link[0]);
 })
 

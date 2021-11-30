@@ -66,13 +66,14 @@ async function GetUserInput(){
 }
 
 async function getiframesrc(url){
-    return await axios.get('http://localhost:5000/', {
-        params: {
-            url: url
-        }
+    return await axios.get('http://localhost:8080/' + url, {
+        //params: {
+        //    url: url
+        //}
     }).then(resp => {
-        console.log(resp.data)
-        return resp.data
+        let regex = RegExp('https:\\/\\/vidstreaming\\.io\\/streaming\\.php\\?id=[^"]*');
+        let match = regex.exec(resp.data);
+        return match[0]
     });
 }
 
