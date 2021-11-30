@@ -66,19 +66,13 @@ async function GetUserInput(){
 }
 
 async function getiframesrc(url){
-
-    if(url.includes("jujutsu-kaisen")){
-        url = url.replace("jujutsu-kaisen", "jujutsu-kaisen-tv");
-    }
-
-    console.log(url)
-
-    return await axios.get('http://localhost:8080/' + url, {
+    return await axios.get('http://localhost:5000/', {
+        params: {
+            url: url
+        }
     }).then(resp => {
-        let regex = RegExp('data-source="https:\\/\\/vidstreaming\\.io\\/streaming\\.php\\?id=(.+?)"', "g");
-        let matches = [...resp.data.matchAll(regex)];
-        console.log("making get request for iframe");
-        return "https://vidstreaming.io/streaming.php?id=" + matches[0][1];
+        console.log(resp.data)
+        return resp.data
     });
 }
 
@@ -114,7 +108,7 @@ function colorselectortype(type){
 }
 
 async function getepisodelink(showname){
-    return await axios.get('http://localhost:8080/https://animeowl.net/watch/' + showname, {
+    return await axios.get('http://localhost:8080/https://animeowl.net/anime/' + showname, {
     }).then(resp => {
         let regex = RegExp('episode-number\" data-ep-id=\"(\\d*)', "g");
         let matches = [...resp.data.matchAll(regex)];
@@ -211,7 +205,7 @@ async function getepisodedata(showname, animeowl, animefillerlist, imdbid, start
 
         let response = await axios.get('http://www.omdbapi.com/?apikey=4c33291e&' + finalquery);
 
-        let showlink = "http://animeowl.net/" + animeowl + "/?ep_id=" + linkmatches[i-1][1]
+        let showlink = "https://v2.chill-game.com/watch/" + animeowl + "/" + i
         let rating;
 
         if(response.data.imdbRating !== "N/A" && response.data.imdbRating){
