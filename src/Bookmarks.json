@@ -38,9 +38,9 @@
     },
     {
       "id": "Mob Psycho 100",
-      "episode": "",
-      "time": "",
-      "animeowl": "mob-psycho-100-dub",
+      "episode": "11",
+      "time": "18:10",
+      "animeowl": "mob-psycho-100",
       "animefillerlist": "mob-psycho-100",
       "imdbid": "tt5897304",
       "season": "1"
@@ -64,13 +64,13 @@
       "season": "3"
     },
     {
-      "id": "kimetsu no yaiba s2",
+      "id": "kimetsu no yaiba entertainment disctrict arc",
       "episode": "",
       "time": "",
-      "animeowl": "kimetsu-no-yaiba-mugen-ressha-hen",
+      "animeowl": "kimetsu-no-yaiba-yuukaku-hen",
       "animefillerlist": "demon-slayer-kimetsu-no-yaiba",
       "imdbid": "tt9335498",
-      "season": "2"
+      "season": "3"
     },
     {
       "id": "Legend of korra season 3",
@@ -90,8 +90,8 @@
     },
     {
       "id": "Attack on titan season 4 part 1",
-      "episode": "8",
-      "time": "04:26",
+      "episode": "16",
+      "time": "",
       "animeowl": "shingeki-no-kyojin-the-final-season",
       "animefillerlist": "attack-titan",
       "imdbid": "tt2560140",

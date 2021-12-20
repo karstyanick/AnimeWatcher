@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "build": "webpack",
-    "start": "concurrently \"json-server --watch ./src/Bookmarks.json\" \"node ./src/corsanywhere.js\""
+    "start": "concurrently \"json-server --watch ./src/Bookmarks.json\" \"node ./src/corsanywhere.js\"",
+    "startserver": "nodemon ./src/server.js"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -14,6 +15,7 @@
     "jquery-autocomplete": "^1.2.8",
     "jquery.autocomplete": "^1.2.0",
     "json-server": "^0.16.3",
+    "puppeteer": "^12.0.1",
     "webpack": "^5.37.1"
   },
   "devDependencies": {

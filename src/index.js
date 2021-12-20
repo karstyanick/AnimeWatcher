@@ -66,14 +66,15 @@ async function GetUserInput(){
 }
 
 async function getiframesrc(url){
-    return await axios.get('http://localhost:8080/' + url, {
-        //params: {
-        //    url: url
-        //}
+    return await axios.get('http://localhost:5000/', {
+        params: {
+            url: url
+        }
     }).then(resp => {
-        let regex = RegExp('https:\\/\\/vidstreaming\\.io\\/streaming\\.php\\?id=[^"]*');
-        let match = regex.exec(resp.data);
-        return match[0]
+        //let regex = RegExp('https:\\/\\/vidstreaming\\.io\\/streaming\\.php\\?id=[^"]*');
+        //let match = regex.exec(resp.data);
+        //return match[0]
+        return resp.data
     });
 }
 
@@ -122,11 +123,15 @@ async function seasonepisodetoglobalepisode(imdbid, season){
     let nofepisodes = 0;
 
     for(let i = 1; i < parseInt(season); i++){
-        let response = await axios.get('http://www.omdbapi.com/?apikey=4c33291e&i=' + imdbid + "&season=" + i)
+        let response = await axios.get('http://localhost:8080/http://www.omdbapi.com/?apikey=4c33291e&i=' + imdbid + "&season=" + i)
         nofepisodes += response.data.Episodes.length;
     }
 
     if(imdbid == "tt5626028" && season >= 3){
+        nofepisodes -= 1;
+    }
+
+    if(imdbid == "tt9335498" && season >= 3){
         nofepisodes -= 1;
     }
 
@@ -204,9 +209,9 @@ async function getepisodedata(showname, animeowl, animefillerlist, imdbid, start
             time = currentepisodetime;
         }
 
-        let response = await axios.get('http://www.omdbapi.com/?apikey=4c33291e&' + finalquery);
+        let response = await axios.get('http://localhost:8080/http://www.omdbapi.com/?apikey=4c33291e&' + finalquery);
 
-        let showlink = "https://v2.chill-game.com/watch/" + animeowl + "/" + i
+        let showlink = "https://portablegaming.co/watch/" + animeowl + "/" + i
         let rating;
 
         if(response.data.imdbRating !== "N/A" && response.data.imdbRating){
@@ -243,6 +248,7 @@ $('#episodelist').on("click", ".watch", async(e) => {
     let title = e.currentTarget.parentElement.nextElementSibling.nextElementSibling.id;
     let iframesrc = await getiframesrc(link);
 
+    $('#episodeframe').attr("controls", true);
     $('#episodeframe').attr("src", iframesrc);
     $("#currentepisode").text(num + ": " + title);
     $(".navigate").show()
